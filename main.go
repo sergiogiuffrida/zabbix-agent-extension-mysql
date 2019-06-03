@@ -29,6 +29,7 @@ Options:
   --discovery                 Run low-level discovery for detect galera/slave.
   --type <type>               Type of statistic global/process/slave/galera
                                 send to zabbix [default: global].
+	-s --fqdn <fqdn>						enter fully qualified domain names of Sender
 
 Zabbix options:
   -z --zabbix <zabbix>        Hostname or IP address of zabbix server
@@ -67,15 +68,17 @@ Misc options:
 		zabbixPrefix = fmt.Sprintf("%s.%s", zabbixPrefix, "mysql")
 	}
 
-	hostname, err := os.Hostname()
-	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
-	}
+	// hostname, err := os.Hostname()
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	os.Exit(1)
+	// }
 
 	network := args["--network"].(string)
 
 	mysqlDSN := args["--mysql"].(string)
+
+	fqdn := args["--fqdn"].(string)
 
 	user := args["--user"].(string)
 	password := args["--pass"].(string)
@@ -119,7 +122,7 @@ Misc options:
 	}
 
 	metrics = createMetrics(
-		hostname,
+		fqdn,
 		stats[0],
 		statsType,
 		filterMetrics,
