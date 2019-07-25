@@ -7,7 +7,7 @@ import (
 
 func calcProcessStats(processes []map[string]string) []map[string]string {
 
-	reUser := regexp.MustCompile("(system user)|(repl)|(root)")
+	reUser := regexp.MustCompile("(system user)|(repl)|(root)|(db_mirror)")
 	reCommand := regexp.MustCompile("Sleep")
 
 	var (
